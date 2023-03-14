@@ -14,6 +14,7 @@ Options:
     -h --help                Show this screen
     --version                Show version
 """
+
 __version__ = '1.0.0'
 
 import os
@@ -40,7 +41,7 @@ if __name__ == '__main__':
     bibtex = texmf/"bibtex/bst/gost780u"
     lyx = Path(os.path.expanduser("~/.lyx/layouts"))
     destinations = [texmf, latex, g2_105, g7_32, base, bibtex, lyx];
-    logging.debug("destinations: {}".format(destinations))
+    logging.debug(f"destinations: {destinations}")
     for x in destinations:
         try:
             x.mkdir(parents=True)
@@ -59,13 +60,13 @@ if __name__ == '__main__':
         bibtex: [src_tex/"gost780u.bst"],
         lyx: src_lyx.glob("layouts/*"),
     }
-    logging.debug("dict {}".format(destination_source))
+    logging.debug(f"dict {destination_source}")
     for destination, source in destination_source.items():
-        logging.debug("copying to {}".format(destination))
+        logging.debug(f"copying to {destination}")
         for f in source:
             if args['--overwrite-existing']:
                 try:
-                    logging.debug("trying to remove {}".format(destination/f.name))
+                    logging.debug(f"trying to remove {destination / f.name}")
                     remove(str(destination/f.name))
                 except FileNotFoundError:
                     pass
